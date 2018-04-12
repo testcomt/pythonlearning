@@ -22,17 +22,17 @@ def cube_int(number):
         if real_number > number:
             max_number = value
         elif real_number < number:
-            min_nmber = value
+            min_number = value
         else:
             break
         
-        value = (min_number + max_number) // 2
+        value = (min_number + max_number)//2
         
-        print "(min_number = ", min_number, " max_number = ", max_number, " value = ", value, " )"
-        print count
+#        print "(min_number = ", min_number, " max_number = ", max_number, " value = ", value, " )"
+#        print count
         
-        value = (min_number + max_number) // 2
-        if value == min_number or count > MAX_COUNT:
+
+        if value <= min_number or count > MAX_COUNT:
             value = 0
             break
 
@@ -54,20 +54,16 @@ def cube_float(number):
         real_number = value ** 3
         if real_number > number + ACCURACY:
             max_number = value
-            print "real_number > number + ACCURACY, real_number = ", real_number
         elif real_number < number - ACCURACY:
             min_number = value
-            print "real_number < number - ACCURACY, real_number = ", real_number
 
         else:
-            print "break"
             break
             
         value = (min_number + max_number)/2
-        print "(min_number = ", min_number, " max_number = ", max_number, " value = ", value, " )"
-        print count
-        if value <= min_number + ACCURACY or count > MAX_COUNT:
-            print "min_number + ACCURACY = ",min_number+ACCURACY
+#        print "(min_number = ", min_number, " max_number = ", max_number, " value = ", value, " )"
+#        print count
+        if value <= min_number or count > MAX_COUNT:
             value = 0
             break
     return value
