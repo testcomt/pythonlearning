@@ -39,7 +39,7 @@
 # else:
 #    print  "the cube root of x is:",ans
 
-# test 1: 
+# test 1:
 # x = 125
 # counting =  4999
 # the cube root of x is: 4.999
@@ -48,7 +48,7 @@
 # test 2:
 # x = 12345
 # counting =  12345000
-# can't find the cube root of x.  
+# can't find the cube root of x.
 # Ques2: what is the affecting factor? Update to version 2.1
 #
 # test 3:
@@ -101,7 +101,7 @@
 # [1]+  Stopped
 # Ques3: Performance problem. Need to improve the algorithm (change solution)
 
-# test 4 :a number of tests: x < 1 or x < epsilon 
+# test 4 :a number of tests: x < 1 or x < epsilon
 # Ques4: WHAT is the pattern?  Ans may be bigger than x. Update to version 3.0
 # x = 0.999
 # counting =  9652
@@ -166,7 +166,7 @@
 #
 # print "counting = ", counting
 #
-# if  abs(ans**3 - abs(x)) > epsilon:  
+# if  abs(ans**3 - abs(x)) > epsilon:
 #    print "can't find the cube root of x."
 # elif x < 0.0:
 #    print "the cube root of x is:",-ans
@@ -179,12 +179,12 @@
 # x = 1.0
 # counting =  9655
 # the cube root of x is: 0.9655
-# 
+#
 # test 2: when x is less than epsilon, the ans is 0
 # x = 0.008
 # counting =  0
 # the cube root of x is: 0.0
-# 
+#
 # test 3: improvement of algorithm for super large input x
 # x = 12345678
 # ^Z
@@ -213,7 +213,7 @@
 #        counting += 1
 #
 #
-# if  abs(ans**3 - abs(x)) > epsilon:  
+# if  abs(ans**3 - abs(x)) > epsilon:
 #    print "can't find the cube root of x."
 # else:
 #    while abs(ans**3 - abs(x)) > abs((ans+step)**3 - abs(x)):
@@ -241,7 +241,7 @@
     # x = float(raw_input("x = "))
 # except:
     # traceback.print_exc()
-    # #sys.exc_info() 
+    # #sys.exc_info()
     # raise
 
 # if x > 99999999999999999999.0 or x < -99999999999999999999.0:
@@ -271,7 +271,7 @@
    # # print counting
    # # print starting, termination, ans
 
-# if  abs(ans**3 - abs(x)) > epsilon:  
+# if  abs(ans**3 - abs(x)) > epsilon:
     # print "can't find the cube root of x."
 # else:
     # while abs(ans**3 - abs(x)) > abs((ans+step)**3 - abs(x)):
@@ -331,7 +331,7 @@
 #    ans = (starting + termination)/2
 #    counting += 1
 #
-#if  abs(ans**3 - abs(x)) > epsilon:  
+#if  abs(ans**3 - abs(x)) > epsilon:
 #    print "can't find the cube root of x."
 #else:
 #    while abs(ans**3 - abs(x)) > abs((ans+step)**3 - abs(x)):
@@ -358,41 +358,43 @@ def ave(a,b):
     return (a+b)/2
 
 def input():
-    x = float(raw_input("x = "))
-    assert x > -9.9E+20 and x < 9.9E+20 
+    # Ques: diff between eval() and float()?
+    x = eval(raw_input("x = "))
+    #Ques: how to limit range of X?
+    assert x > -9.9E+20 and x < 9.9E+20
+    print locals()
     return x
 
-x = input()
-
-counting = 0
 epsilon = 0.1
 step = 0.0001
-starting = 0.0
-termination = max(1.0, abs(x))
-#ans = (starting + termination)/2
-ans = ave(starting, termination)
 
-#while abs(ans**3 - abs(x)) > epsilon and ans < termination:
-while abs(ans**3 - abs(x)) > epsilon:  #will this loop terminate?
-    if ans**3 > abs(x):
-        termination = ans
+while True:
+    counting = 0
+    x = input() 
+    starting = 0.0
+    termination = max(1.0, abs(x))
+    ans = ave(starting, termination)
+    
+    #while abs(ans**3 - abs(x)) > epsilon and ans < termination:
+    while abs(ans**3 - abs(x)) > epsilon:  #will this loop terminate?
+        if ans**3 > abs(x):
+            termination = ans
+        else:
+            starting = ans
+        ans = ave (starting, termination)
+        counting += 1
+
+    if  abs(ans**3 - abs(x)) > epsilon:
+        print "can't find the cube root of x."
     else:
-        starting = ans
-    ans = ave (starting, termination)
-    counting += 1
+        while abs(ans**3 - abs(x)) > abs((ans+step)**3 - abs(x)):
+            ans = ans + step
+            counting += 1
+        while abs(ans**3 - abs(x)) > abs((ans-step)**3 - abs(x)):
+            ans = ans - step
+            counting += 1
 
-if  abs(ans**3 - abs(x)) > epsilon:  
-    print "can't find the cube root of x."
-else:
-    while abs(ans**3 - abs(x)) > abs((ans+step)**3 - abs(x)):
-        ans = ans + step
-        counting += 1
-    while abs(ans**3 - abs(x)) > abs((ans-step)**3 - abs(x)):
-        ans = ans - step
-        counting += 1
-
-    if x < 0.0:
-        ans = -ans
-    print "the cube root of x is:",ans
-print "counting = ", counting
-
+        if x < 0.0:
+            ans = -ans
+        print "the cube root of x is:",ans
+    print "counting = ", counting
